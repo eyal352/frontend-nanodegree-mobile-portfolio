@@ -19,4 +19,8 @@ The following optimizations were made to optimize the frames per second on the p
 1. Invoked "use strict";
 2. Improved the for loop on changePizzaSizes by declaring a variable and then iterating on that variable
 3. Removed ChangePizzaSizes, changeSliderLaber, and DetermineDx functions from within resizePizzas function.
-
+4. Removed variable declerations from the for loop in the ChangePizzaSizes function
+5. Removed variable declerations from the for loop in resizePizzas function
+6. Reduced the number of background pizzas from 200 to 50.
+7. Moved document.body.scrollTop into a variable outside of the for loop in the updatePositions function
+8. Declared a new variable for the movingPizzas1 element selection outside of the for loop at the end of the script
