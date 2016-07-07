@@ -145,12 +145,12 @@ pizzaIngredients.crusts = [
 
 // Name generator pulled from http://saturdaykid.com/usernames/generator.html
 // Capitalizes first letter of each word
-String.prototype.capitalize = function() {
+String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1);
 };
 
 // Pulls adjective out of array using random number sent from generator
-function getAdj(x){
+function getAdj(x) {
   switch(x) {
     case "dark":
       var dark = ["dark","morbid", "scary", "spooky", "gothic", "deviant", "creepy", "sadistic", "black", "dangerous", "dejected", "haunted",
@@ -407,7 +407,7 @@ function changePizzaSizes(size) {
   var randomPizzas = document.getElementsByClassName("randomPizzaContainer");
   var dx = determineDx(randomPizzas[0], size);
   var newwidth = (randomPizzas[0].offsetWidth + dx) + 'px';
-  for (var i = 0; i < randomPizzas.length; i++) {
+  for (var i = 0, l = randomPizzas.length; i < l; i++) {
     randomPizzas[i].style.width = newwidth;
   }
 }
@@ -472,9 +472,11 @@ window.performance.mark("mark_start_generating"); // collect timing data
 // This for-loop actually creates and appends all of the pizzas when the page loads
 // removed pizzasDiv out of for loop
 var pizzasDiv = document.getElementById("randomPizzas");
+var frag = document.createDocumentFragment(); // Using DocumentFragment to append child elements in-memory instead of the in the DOM
 for (var i = 2; i < 200; i++) {
-  pizzasDiv.appendChild(pizzaElementGenerator(i));
+  frag.appendChild(pizzaElementGenerator(i));
 }
+pizzasDiv.appendChild(frag);
 
 // User Timing API again. These measurements tell you how long it took to generate the initial pizzas
 window.performance.mark("mark_end_generating");
@@ -506,7 +508,7 @@ function updatePositions() {
 
   var items = document.getElementsByClassName('mover');
   // Moved document.body.scrollTop out of loop and into a variable to be called within the loop
-  var bodyScrollTop = document.body.scrollTop / 1250
+  var bodyScrollTop = document.body.scrollTop / 1250;
   for (var i = 0; i < items.length; i++) {
     var phase = Math.sin(bodyScrollTop + (i % 5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
@@ -528,12 +530,13 @@ window.addEventListener('scroll', updatePositions);
 // Generates the sliding pizzas when the page loads.
 // only about 30 visible pizzas in the background at any given moment in the window. No need to loop through 200.
 document.addEventListener('DOMContentLoaded', function() {
-  var cols = 8;
+  var cols = 6;
   var s = 256;
 // Declared new variable 'movingPizzas' for DOM selection
-  var movingPizzas = document.getElementById("movingPizzas1")
+  var movingPizzas = document.getElementById("movingPizzas1");
+  var elem;
   for (var i = 0; i < 50; i++) {
-    var elem = document.createElement('img');
+    elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
     elem.style.height = "100px";
